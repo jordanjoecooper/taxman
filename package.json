@@ -1,0 +1,13 @@
+{
+  "name": "taxman-offline",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Portable, offline UK income tax and pension scenario calculator",
+  "scripts": {
+    "build": "node scripts/build.cjs",
+    "test": "node --test test/*.test.cjs",
+    "start": "node scripts/serve.cjs",
+    "calculate": "node cli.cjs"
+  },
+  "engines": { "node": ">=20" }
+}
