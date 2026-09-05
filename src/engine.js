@@ -104,16 +104,17 @@
     const pa = personalAllowance;
     const taxEnds = x.country === 'scotland' ? r.scotland.map(n => n + pa) : [37700 + pa, 125140];
     const points = [...new Set([0, 100000, 125140, pa, ...taxEnds, loanThreshold, 21000].filter(n => Number.isFinite(n) && n > 0 && n < Math.max(x.income,125140)))].sort((a,b)=>a-b);
-    const rateAt = gross => {
+    const ratesAt = gross => {
       let taxRate;
       if (gross <= 12570) taxRate = 0;
       else if (x.country === 'scotland') { let i=taxEnds.findIndex(end=>gross<=end); if(i<0)i=5; taxRate=[.19,.20,.21,.42,.45,.48][i]; }
       else taxRate = gross <= 50270 ? .20 : gross <= 125140 ? .40 : .45;
       if (gross > 100000 && gross <= 125140) taxRate += .20;
       const niRate = x.incomeType === 'pension' || x.niExempt ? 0 : gross <= 50270 ? (x.incomeType === 'self-employed' ? .06 : .08) : .02;
-      return round((taxRate + niRate + (loanThreshold !== null && gross > loanThreshold ? .09 : 0) + (x.postgraduate && gross > 21000 ? .06 : 0)) * 100);
+      const loanRate = (loanThreshold !== null && gross > loanThreshold ? .09 : 0) + (x.postgraduate && gross > 21000 ? .06 : 0);
+      return { incomeTaxRate: taxRate, niRate, loanRate, totalRate: taxRate + niRate + loanRate };
     };
-    for (let i=0;i<points.length;i++) { const from=points[i], to=points[i+1] || Math.max(x.income,from); if(to>from) marginalBlocks.push({from,to,rate:rateAt((from+to)/2),label:from>=100000&&to<=125140?'Personal Allowance taper':'Marginal deductions'}); }
+    for (let i=0;i<points.length;i++) { const from=points[i], to=points[i+1] || Math.max(x.income,from); if(to>from) { const rates=ratesAt((from+to)/2); marginalBlocks.push({from,to,rate:round(rates.totalRate*100),incomeTaxRate:round(rates.incomeTaxRate*100),niRate:round(rates.niRate*100),loanRate:round(rates.loanRate*100),label:from>=100000&&to<=125140?'Personal Allowance taper':'Marginal deductions'}); } }
     const thresholdIncome = x.income - netPay - ras;
     const adjustedIncome = x.income + x.employerPension + employerNIReinvested;
     const annualAllowance = thresholdIncome > 200000 && adjustedIncome > 260000 ? Math.max(10000, 60000 - (adjustedIncome - 260000) / 2) : 60000;

@@ -1,5 +1,5 @@
 'use strict';
-const CACHE = 'taxman-' + new URL(self.registration.scope).pathname + '-c67a839f2002';
+const CACHE = 'taxman-' + new URL(self.registration.scope).pathname + '-e4a1400ebfb6';
 const ASSETS = ["index.html","taxman-offline.html","engine.js","API.md","SOURCES.md","input.schema.json","llms.txt","cli.cjs"];
 self.addEventListener('install', event => { event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting())); });
 self.addEventListener('activate', event => { event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key.startsWith('taxman-' + new URL(self.registration.scope).pathname + '-') && key !== CACHE).map(key => caches.delete(key)))).then(() => self.clients.claim())); });

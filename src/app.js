@@ -98,7 +98,7 @@
     for (const block of a.marginalBlocks) {
       const tr = document.createElement('tr');
       const end = block.to >= Math.max(current.input.income, 125140) ? 'and above' : '– ' + money(block.to);
-      [money(block.from) + ' ' + end, block.rate + '%', block.label].forEach((text, index) => { const td = document.createElement(index === 0 ? 'th' : 'td'); if(index===0) td.scope='row'; td.textContent=text; tr.append(td); });
+      [money(block.from) + ' ' + end, block.incomeTaxRate + '%', block.niRate + '%', block.loanRate + '%', block.rate + '%', block.label].forEach((text, index) => { const td = document.createElement(index === 0 ? 'th' : 'td'); if(index===0) td.scope='row'; td.textContent=text; tr.append(td); });
       $('marginal-blocks').append(tr);
     }
     $('allowance-note').textContent = 'Adjusted net income: ' + money(a.adjustedNetIncome) + '. Personal Allowance: ' + money(a.personalAllowance) + '. Taxable income: ' + money(a.taxableIncome) + '. All figures below are annual.';
