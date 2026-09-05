@@ -14,11 +14,11 @@ npm start
 
 Open http://127.0.0.1:4173/taxman/ or double-click `dist/index.html`. `dist/taxman-offline.html` is the portable single-file edition. The on-page download contains the default example inputs, not the user's financial data. JSON exports do contain their inputs.
 
-## Deploy to jordanjoecooper.com
+## Deploy
 
-Copy the **contents** of `dist/` into the existing site's static `public/taxman/` directory, then use that site's normal build and deployment. The neighbouring `jordanjoecoopercom` project uses Astro, so these files can be served directly at `/taxman/` without changing the site's framework. This repository does not alter or publish the main site.
+Copy the **contents** of `dist/` to any static hosting provider, or serve them from a subdirectory of an existing site. The files are framework-independent: preserve the relative paths, serve `.js` as JavaScript and HTML as HTML, and use the host's normal build and deployment process. No server-side calculation endpoint is required.
 
-All asset paths are relative; any subdirectory works. Serve `.js` as JavaScript and HTML as HTML. HTTPS enables the scoped service worker for offline revisits; direct file use works without it. If the host uses a restrictive Content Security Policy, authorize the generated inline script/style hashes or configure a policy for this page. Do not add external assets or analytics if preserving the no-network design.
+All asset paths are relative, so any subdirectory works. HTTPS enables the scoped service worker for offline revisits; direct file use works without it. If the host uses a restrictive Content Security Policy, authorize the generated inline script/style hashes or configure a policy for this page. Do not add external assets or analytics if preserving the no-network design.
 
 The service worker caches a versioned set of local artifacts, uses the network when available, and falls back to the installed version when offline. It only manages caches belonging to its own path. An offline copy cannot acquire new tax rules: rebuild and redistribute after verifying updates.
 
