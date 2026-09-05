@@ -1,0 +1,14 @@
+# Taxman
+
+Offline UK annual tax and pension calculator, version 1.0.0. Rules checked 2026-09-05. Supports 2025/26 and 2026/27 only.
+
+- [API reference](API.md): strict inputs, outputs, limitations, examples.
+- [Input JSON Schema](input.schema.json): machine-readable fields.
+- [Engine](engine.js): dependency-free CommonJS module or browser global Taxman.
+- [CLI](cli.cjs): accepts JSON input on stdin or --file, returns JSON.
+- [Sources and methodology](SOURCES.md): authoritative rules and estimate boundaries.
+- [Standalone offline page](taxman-offline.html): all calculations and interface bundled.
+
+No hosted API. Download the engine and use Taxman.calculate(input) or Taxman.compare(baseline, changes). In the source checkout the engine lives in src/engine.js. Browser agents may use labelled controls and read #taxman-result (application/json).
+
+All amounts are annual GBP. Do not treat monthly averages as exact payroll or results as a full tax-return liability. Always propagate warnings and assumptions. Loan reductions are not necessarily lifetime savings; pension value is not spendable cash. Unknown or invalid inputs fail instead of being silently coerced.

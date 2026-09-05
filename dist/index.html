@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Understand your UK take-home pay. Compare income tax, pensions, salary sacrifice and student loans in a private, fully offline calculator.">
+  <meta name="theme-color" content="#164b40">
+  <meta property="og:title" content="Taxman — make sense of your take-home pay">
+  <meta property="og:description" content="An offline UK tax and pension calculator for people and agents. England, Scotland, Wales and Northern Ireland.">
+  <meta property="og:type" content="website">
+  <meta name="referrer" content="no-referrer">
+  <title>Taxman · UK take-home pay & pension calculator</title>
+  <style>
+:root{color-scheme:light;--ink:#203c35;--muted:#66726c;--green:#164b40;--paper:#f5f5ed;--line:#dce1d7;--lime:#dcf2a3;--gold:#c9a05f;--purple:#aca4c5;--radius:15px;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:var(--paper);font-synthesis:none}*{box-sizing:border-box}body{margin:0;font-size:15px;line-height:1.55}a{color:var(--green);text-underline-offset:3px}button,input,select{font:inherit}button,summary,select,input[type=checkbox]{cursor:pointer}button{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:7px;padding:9px 13px;font-size:13px;font-weight:600;transition:background .15s}button:hover{background:#edf1e6}button:disabled{opacity:.45;cursor:default}button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #a0b55f;outline-offset:3px}input,select{border:1px solid #cbd3c9;border-radius:7px;background:#fff;color:var(--ink);width:100%;min-height:44px;padding:10px 11px;font-variant-numeric:tabular-nums}input:disabled{background:#eff0e9}input[type=checkbox]{min-height:0;accent-color:var(--green);width:17px;height:17px;flex-shrink:0;margin:0}h1,h2,p{margin:0}h2{font-size:19px;letter-spacing:-.5px;line-height:1.3}p+p{margin-top:12px}.masthead{max-width:1280px;margin:auto;display:flex;align-items:center;gap:22px;padding:23px 40px;border-bottom:1px solid var(--line)}.brand{font-weight:850;letter-spacing:-1.8px;font-size:30px;text-decoration:none;line-height:1}.brand-dot{color:#819953}.byline{font-size:12px;color:var(--muted)}.privacy{margin-left:auto;font-size:12px;color:var(--green)}.privacy span{font-size:9px;margin-right:6px}main{max-width:1200px;margin:auto;padding:0 0 28px}.intro{display:flex;justify-content:space-between;align-items:flex-end;padding:42px 0 32px;gap:24px}.eyebrow{font-size:10px;letter-spacing:1.7px;font-weight:750;margin-bottom:11px;color:#627655}h1{font-size:clamp(28px,3.1vw,40px);line-height:1.17;letter-spacing:-1.5px;font-weight:650}h1 span{color:#77816c}.intro p:last-child{font-size:14px;color:var(--muted);margin-top:14px}.edition{font-size:12px;font-weight:700;text-align:right;padding-bottom:3px;white-space:nowrap}.edition span{display:block;font-size:11px;font-weight:400;color:var(--muted);margin-top:3px}.workspace{display:grid;grid-template-columns:350px minmax(0,1fr);gap:24px;align-items:start}.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius)}.inputs{padding:25px}.section-title{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:20px}.text-button{padding:0;border:none;background:none;color:var(--muted);font-size:12px}.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}label{font-size:12px;font-weight:600;display:flex;flex-direction:column;gap:7px;margin-bottom:16px}.money-input{display:flex;align-items:center;position:relative}.money-input>span{position:absolute;left:12px;font-size:15px;color:var(--muted)}.money-input input{padding-left:28px;font-size:20px;font-weight:600;letter-spacing:-.4px}.help{font-size:11px;color:var(--muted);line-height:1.65;margin-top:-7px;margin-bottom:16px}.help code{font-size:11px}fieldset{margin:23px 0 0;padding:21px 0 0;border:0;border-top:1px solid var(--line);min-width:0}legend{float:left;width:100%;font-size:13px;font-weight:700;margin-bottom:16px}legend+*{clear:both}.loan-intro{padding-top:2px}.plan-options{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}.plan-options label{border:1px solid var(--line);border-radius:7px;padding:10px;flex-direction:row;align-items:center;margin:0;font-weight:500}.plan-options label:has(input:checked){background:#f0f6e7;border-color:#9ead89}.check{flex-direction:row;align-items:center;gap:9px;font-size:12px;font-weight:400}.advanced{padding:17px 0;border-top:1px solid var(--line);margin:20px 0 12px}.advanced summary{font-size:12px}.advanced label{margin:15px 0 0}.results-column{display:grid;gap:20px}.result-card{background:var(--green);color:#fff;padding:28px 30px;border:0}.result-top{display:flex;align-items:center;justify-content:space-between;gap:14px}.result-top h2{font-size:14px;font-weight:500;color:#dfebe3;letter-spacing:0}.periods{display:flex;background:#103f35;padding:3px;border-radius:7px}.periods button{border:0;background:transparent;color:#c7d8cd;font-size:11px;padding:6px 10px}.periods button[aria-pressed=true]{background:#e3efda;color:var(--green)}.take-home{display:flex;align-items:baseline;gap:14px;margin-top:21px;flex-wrap:wrap}.take-home output{font-size:clamp(38px,4.8vw,57px);font-weight:550;letter-spacing:-2px;line-height:1.2;font-variant-numeric:tabular-nums}.take-home>span{color:#d6e4d9;font-size:12px}#take-home-note{color:#c0d4c7;font-size:12px;margin:9px 0 23px}.allocation{display:flex;height:11px;border-radius:4px;overflow:hidden;background:#376559}.allocation span{height:100%}.allocation-key{display:flex;gap:17px;flex-wrap:wrap;font-size:10px;color:#d5e4d9;margin-top:11px}.allocation-key span{display:flex;align-items:center;gap:6px}.allocation-key i{width:6px;height:6px;border-radius:50%;display:inline-block}.cash-dot,.allocation .cash{background:var(--lime)}.tax-dot,.allocation .tax{background:#8bada0}.pension-dot,.allocation .pension{background:var(--gold)}.loan-dot,.allocation .loans{background:var(--purple)}.breakdown{margin:24px 0 18px;font-size:13px}.breakdown>div{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid #38675b}.breakdown dt{color:#d4e3d8}.breakdown dd{margin:0;font-variant-numeric:tabular-nums;font-weight:550}.pension-total{display:flex;justify-content:space-between;align-items:center;gap:15px;font-size:13px}.pension-total small{display:block;color:#b6cdbd;font-size:10px;margin-top:2px}.pension-total strong{color:var(--lime);font-size:22px;letter-spacing:-.7px;font-variant-numeric:tabular-nums}.decisions{padding:26px 30px}.decisions .section-title{margin-bottom:12px}.decisions .eyebrow{margin-bottom:7px}.small-badge{white-space:nowrap;font-size:10px;color:#587041;border:1px solid #d4dec9;background:#f1f6e9;padding:4px 8px;border-radius:4px}.muted{font-size:13px;color:var(--muted);line-height:1.65}.quick-actions{display:flex;gap:7px;flex-wrap:wrap;margin:17px 0 22px}.quick-actions button{font-size:11px;padding:7px 9px;background:#f4f6ee}.decisions label{font-size:11px}.decisions input,.decisions select{font-size:13px}.comparison-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:7px 0 17px}.delta{background:#f3f6ed;border-radius:9px;padding:15px}.delta small{color:var(--muted);font-size:11px;display:block}.delta strong{font-size:25px;font-weight:600;letter-spacing:-.7px;display:block;margin:3px 0}.delta .negative{color:#8b573a}.delta span{font-size:11px;color:var(--muted)}.comparison-table{font-size:12px;width:100%;border-collapse:collapse}.comparison-table th,.comparison-table td{padding:7px 0;border-bottom:1px solid #e6e9e0;text-align:right;font-variant-numeric:tabular-nums}.comparison-table th:first-child,.comparison-table td:first-child{text-align:left;font-weight:400}.comparison-table th{color:var(--muted);font-weight:500;font-size:10px}.comparison-footnote{border-top:1px solid var(--line);padding-top:13px;margin:16px 0 0}#scenario-explanation{margin-top:15px;margin-bottom:0}.details-card{padding:20px 26px}summary{font-weight:600;font-size:13px;list-style-position:outside;margin-left:15px}details[open]>summary{margin-bottom:18px}details p{font-size:12px;color:var(--muted)}.table-scroll{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:12px}caption{text-align:left;color:var(--muted);font-size:11px;margin:13px 0 6px}th,td{text-align:right;padding:8px 6px;border-bottom:1px solid var(--line)}th:first-child,td:first-child{text-align:left}th{font-size:11px;font-weight:600}.details-card .help{margin-top:12px}ul{padding-left:17px;font-size:11px;color:var(--muted)}li+li{margin-top:8px}.warning{padding:11px 13px;border-radius:6px;background:#fbf4e7;color:#70572b;font-size:11px;margin-top:12px}.error{padding:13px 16px;background:#fff0eb;border:1px solid #e6baaa;border-radius:8px;font-size:13px;color:#8c3526}.utility-bar{margin:28px 0 22px;display:flex;align-items:center;flex-wrap:wrap;gap:16px;padding:22px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.utility-bar strong{font-size:13px}.utility-bar p{font-size:11px;color:var(--muted);margin-top:3px}.utility-actions{display:flex;gap:8px;margin-left:auto;flex-wrap:wrap}.utility-actions button{font-size:11px}#status{width:100%;margin:0}#status:empty{display:none}.information-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}.information-grid>.card{padding:21px 24px;align-self:start}.information-grid pre{white-space:pre-wrap;font-size:11px;padding:13px;background:#f4f6ef;border-radius:7px}.information-grid code{overflow-wrap:anywhere}footer{display:flex;align-items:center;gap:22px;padding-top:33px;color:var(--muted);font-size:11px}footer .brand{font-size:22px;color:var(--green)}footer span:last-child{margin-left:auto}.skip{position:absolute;left:15px;top:-100px;background:#fff;padding:10px;z-index:10}.skip:focus{top:10px}[hidden]{display:none!important}.invalid .result-card,.invalid .decisions{display:none}.invalid .details-card{display:none}
+@media(max-width:1280px){main{margin:0 40px}}@media(max-width:950px){.workspace{grid-template-columns:300px minmax(0,1fr);gap:18px}.inputs{padding:20px}.result-card,.decisions{padding:23px}.result-top{align-items:flex-start;flex-direction:column}.edition{display:none}.take-home{gap:7px}.small-badge{display:none}.intro{padding-top:30px}.utility-actions{margin-left:0}}@media(max-width:700px){.masthead{padding:20px;gap:15px}.byline{display:none}.privacy{font-size:10px}main{margin:0 20px}.intro{padding:26px 0 24px}.intro p:last-child{font-size:12px}.workspace{grid-template-columns:1fr}.result-top{flex-direction:row;align-items:center}.result-card,.decisions{padding:22px}.inputs{padding:22px}.field-grid{gap:12px}.take-home output{font-size:46px}.information-grid{grid-template-columns:1fr}.quick-actions{gap:6px}.utility-actions button{padding:8px 10px}.allocation-key{gap:10px}footer{flex-wrap:wrap;gap:12px}footer span:last-child{margin-left:0;width:100%}.comparison-grid{gap:10px}.delta strong{font-size:23px}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}@media print{body{background:#fff;font-size:11px}.masthead,.intro,.utility-bar,.information-grid,footer,.quick-actions,.periods,.text-button{display:none}main{margin:0}.workspace{display:block}.inputs{page-break-after:always}.card{break-inside:avoid;margin-bottom:16px}.result-card{color:#000;background:#fff;border:1px solid #ddd}.result-card *{color:#000!important}.results-column{display:block}.allocation,.allocation-key{display:none}}
+:root{--rate-card:#103f35}
+.rate-summary{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px}.rate-summary>div{background:var(--rate-card);border-radius:8px;padding:12px}.rate-summary span{display:block;color:#c8dbce;font-size:11px}.rate-summary strong{display:block;color:var(--lime);font-size:20px;font-weight:600;margin:1px 0}.rate-summary small{display:block;color:#aec6b5;font-size:10px}
+
+</style>
+</head>
+<body>
+  <a href="#calculator" class="skip">Skip to calculator</a>
+  <header class="masthead"><a class="brand" href="#">taxman<span class="brand-dot">.</span></a><span class="byline">A tool by Jordan Joe Cooper</span><span class="privacy"><span aria-hidden="true">●</span> Private by design. Works offline.</span></header>
+  <main>
+    <div class="intro"><div><p class="eyebrow">UK TAX & PENSION CALCULATOR</p><h1>See where your money goes.<br><span>Explore what could change.</span></h1><p>Take-home pay, pension contributions and the decisions in between.</p></div><div class="edition">2025/26 + 2026/27<span>Rules checked 5 September 2026</span></div></div>
+    <div class="workspace" id="calculator">
+      <form id="calculator-form" class="card inputs" novalidate>
+        <div class="section-title"><h2>Your numbers</h2><button type="button" class="text-button" id="reset">Reset</button></div>
+        <div class="field-grid"><label>Tax year<select name="year"><option value="2026/27">2026/27</option><option value="2025/26">2025/26</option></select></label><label>Where you live<select name="country"><option value="england">England</option><option value="scotland">Scotland</option><option value="wales">Wales</option><option value="northern-ireland">Northern Ireland</option></select></label></div>
+        <label>Income type<select name="incomeType"><option value="employed">Employed</option><option value="self-employed">Self-employed / sole trader</option><option value="pension">Taxable pension income</option></select></label>
+        <label><span id="income-label">Annual gross salary</span><span class="money-input"><span>£</span><input name="income" type="number" value="50000" min="0" max="10000000" step="0.01" inputmode="decimal" required aria-describedby="income-help"></span></label><p id="income-help" class="help">Before tax and pension contributions, including bonuses.</p>
+        <fieldset id="pension-fields"><legend>Pension contributions</legend><label>How you contribute<select name="pensionMethod"><option value="none">No personal contribution</option><option value="salary-sacrifice">Salary sacrifice</option><option value="net-pay">Net pay (before Income Tax)</option><option value="relief-at-source">Relief at source / SIPP</option></select></label>
+          <div id="contribution-field" hidden><label>Contribution input<select name="pensionInputMode"><option value="amount">Fixed amount (£ per year)</option><option value="percentage">Percentage of salary / profit</option></select></label><label id="pension-amount-field">Gross contribution per year<span class="money-input"><span>£</span><input name="pension" type="number" value="0" min="0" max="10000000" step="0.01" inputmode="decimal" aria-describedby="pension-help" required></span></label><label id="pension-percentage-field" hidden>Contribution percentage<input name="pensionPercentage" type="number" value="0" min="0" max="100" step="0.1" inputmode="decimal" aria-describedby="pension-help" required><span class="help">Calculated from your entered annual salary or profit.</span></label><p class="help" id="pension-help">Total going into your pension before employer additions.</p></div>
+          <div id="employer-field"><label>Employer contribution per year<span class="money-input"><span>£</span><input name="employerPension" type="number" value="0" min="0" max="10000000" step="0.01" inputmode="decimal" required></span></label><p class="help">On top of your contribution; exclude sacrificed salary.</p></div>
+          <div id="sacrifice-fields" hidden><div class="field-grid"><label>Weekly paid hours<input name="hoursPerWeek" type="number" min="0.01" max="100" step="0.01" value="37.5" required></label><label>Employer NI shared (%)<input name="employerNIShare" type="number" min="0" max="100" step="1" value="0" required></label></div><p class="help">NI savings your employer adds to your pension. Minimum-wage check assumes age 21+ and 52 paid weeks.</p></div>
+        </fieldset>
+        <fieldset><legend>Student loans</legend><p class="help loan-intro">Choose every plan you repay. Your plan depends on your loan, not where you live now.</p><div class="plan-options"><label><input type="checkbox" name="studentPlans" value="1"> Plan 1</label><label><input type="checkbox" name="studentPlans" value="2"> Plan 2</label><label><input type="checkbox" name="studentPlans" value="4"> Plan 4</label><label><input type="checkbox" name="studentPlans" value="5"> Plan 5</label></div><label class="check"><input type="checkbox" name="postgraduate"> Postgraduate loan as well</label></fieldset>
+        <details class="advanced"><summary>National Insurance options</summary><label class="check" id="ni-field"><input type="checkbox" name="niExempt"><span id="ni-label">State Pension age for the whole year</span></label><label class="check" id="class2-field" hidden><input type="checkbox" name="voluntaryClass2"> Pay voluntary Class 2 when below the profits threshold</label></details>
+        <p class="help">One income source per calculation. Annual estimates, not a tax return or exact payslip.</p>
+      </form>
+      <div class="results-column">
+        <div id="error" class="error" role="alert" hidden></div>
+        <section class="card result-card" aria-labelledby="result-title">
+          <div class="result-top"><h2 id="result-title">Your take-home pay</h2><div class="periods" role="group" aria-label="Display period"><button type="button" data-period="12" aria-pressed="true">Monthly</button><button type="button" data-period="1" aria-pressed="false">Yearly</button><button type="button" data-period="52" aria-pressed="false">Weekly</button></div></div>
+          <div class="take-home"><output id="take-home" aria-live="polite">—</output><span id="period-label">per month, annual average</span></div>
+          <p id="take-home-note">After Income Tax, National Insurance, pensions and loans.</p>
+          <div class="allocation" id="allocation" aria-hidden="true"></div><div class="allocation-key"><span><i class="cash-dot"></i>Take-home</span><span><i class="tax-dot"></i>Tax & NI</span><span><i class="pension-dot"></i>Pension from pay</span><span><i class="loan-dot"></i>Loans</span></div>
+          <dl id="breakdown" class="breakdown"></dl>
+          <div class="pension-total"><span>Into your pension <small>Including employer & provider additions</small></span><strong id="pension-total">—</strong></div>
+          <div class="rate-summary"><div><span>Overall deductions</span><strong id="effective-rate">—</strong><small>Tax, NI & loans ÷ gross income</small></div><div><span>Personal Allowance</span><strong id="allowance-value">—</strong><small id="allowance-impact">Standard allowance</small></div></div>
+        </section>
+        <section class="card decisions" aria-labelledby="decisions-title"><div class="section-title"><div><p class="eyebrow">WHAT IF?</p><h2 id="decisions-title">Make the trade-off visible</h2></div><span class="small-badge">Live comparison</span></div><p class="muted">Explore a different pension contribution or income. See the change to cash today and pension savings for later.</p>
+          <div class="quick-actions"><button type="button" id="switch-sacrifice">Try salary sacrifice</button><button type="button" id="restore-allowance">Explore £100k threshold</button><button type="button" id="extra-pension">Add £1,000 to pension</button></div>
+          <form id="scenario-form" novalidate><div class="field-grid"><label><span id="scenario-income-label">Alternative annual income (£)</span><input name="scenarioIncome" type="number" value="50000" min="0" max="10000000" step="0.01" required></label><label id="scenario-pension-label">Alternative gross pension (£)<input name="scenarioPension" type="number" value="5000" min="0" max="10000000" step="0.01" required></label></div><label id="scenario-method-label">Alternative contribution method<select name="scenarioMethod"><option value="salary-sacrifice">Salary sacrifice</option><option value="net-pay">Net pay</option><option value="relief-at-source">Relief at source / SIPP</option><option value="none">No personal contribution</option></select></label></form>
+          <p id="scenario-error" class="error" role="alert" hidden></p><div id="comparison"></div><p id="scenario-explanation" class="help"></p>
+          <p class="help comparison-footnote">Pension money is usually inaccessible until pension access age and may be taxed on withdrawal. Lower loan payments may defer repayment. Comparisons exclude pension tax charges and benefit changes.</p>
+        </section>
+        <section class="card details-card"><details><summary>Your tax bands, marginal blocks & calculation notes</summary><p id="allowance-note" class="muted"></p><div class="table-scroll"><table><caption>Annual taxable income after your Personal Allowance</caption><thead><tr><th scope="col">Band</th><th scope="col">Rate</th><th scope="col">Income in band</th><th scope="col">Tax</th></tr></thead><tbody id="tax-bands"></tbody></table></div><h3>Effective rate by gross-income block</h3><p class="help">Marginal deductions combine Income Tax, National Insurance and selected loan repayments. The Personal Allowance taper adds 20 percentage points between £100,000 and £125,140.</p><div class="table-scroll"><table><thead><tr><th scope="col">Gross block</th><th scope="col">Marginal deductions</th><th scope="col">What changes</th></tr></thead><tbody id="marginal-blocks"></tbody></table></div><p class="help">Relief-at-source contributions extend the basic-rate band and shift the higher boundaries. Scotland’s starter band stays the same.</p><ul id="assumptions"></ul></details><div id="warnings"></div></section>
+      </div>
+    </div>
+    <section class="utility-bar"><div><strong>Your numbers stay here.</strong><p>No accounts, cookies, analytics or network calculations. Nothing is saved automatically.</p></div><div class="utility-actions"><button type="button" id="download-results">Export results (JSON)</button><button type="button" id="download-offline">Download offline page</button><button type="button" id="print">Print</button></div><p id="status" role="status"></p></section>
+    <section class="information-grid"><details class="card"><summary>For people & agents</summary><p>The same calculation engine powers this page and a dependency-free Node interface. It accepts structured inputs and returns the calculation, tax bands, assumptions and warnings.</p><pre><code>Taxman.calculate({
+  year: '2026/27', country: 'scotland',
+  income: 60000,
+  pensionMethod: 'salary-sacrifice',
+  pension: 6000, studentPlans: ['4']
+})</code></pre><p>Use <code>Taxman.compare(baseline, changes)</code> for scenarios. Download the distribution to use <code>node cli.cjs &lt; input.json</code>. The full JSON result is also in <code>#taxman-result</code> after each calculation.</p><p><a href="API.md">API reference</a> · <a href="input.schema.json">Input schema</a> · <a href="engine.js" download>Calculation engine</a></p></details>
+    <details class="card"><summary>Tax years, sources & scope</summary><p>Rules are bundled with the page, checked on 5 September 2026. Offline copies do not update themselves. The selected year runs from 6 April to 5 April.</p><p>Supports employment, sole-trader profits and taxable pension income separately. Enter pension income after excluding any tax-free element. It does not calculate drawdown allowances or tax-free lump sums.</p><p>Figures use published <a href="https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027" target="_blank" rel="noopener noreferrer">HMRC rates for 2026/27</a>, <a href="https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2025-to-2026" target="_blank" rel="noopener noreferrer">2025/26 rates</a> and <a href="https://www.gov.scot/publications/scottish-income-tax-rates-and-bands/" target="_blank" rel="noopener noreferrer">Scottish tax bands</a>.</p><p><a href="SOURCES.md">Full sources & methodology</a>. Source links need an internet connection; calculations do not.</p><p>An independent planning estimate, not personalised financial advice or an HMRC filing tool.</p></details></section>
+    <footer><span class="brand">taxman.</span><span>Made for clearer decisions.</span><span>Rules v1.0.0 · Fully offline</span></footer>
+  </main>
+  <noscript><p class="error">Enable JavaScript to calculate locally. No data is sent anywhere.</p></noscript>
+  <script>
+/* Taxman 1.0.0. Pure offline annual estimates. See SOURCES.md and API.md. */
+(function (root, factory) {
+  if (typeof module === 'object' && module.exports) module.exports = factory();
+  else root.Taxman = factory();
+})(typeof globalThis !== 'undefined' ? globalThis : this, function () {
+  'use strict';
+  const VERSION = '1.0.0';
+  const VERIFIED = '2026-09-05';
+  const RULES = {
+    '2025/26': { scotland: [2827, 14921, 31092, 62430, 125140], loans: { '1': 26065, '2': 28470, '4': 32745, '5': null }, class2: 3.50, smallProfits: 6845, minimumWage: 12.21 },
+    '2026/27': { scotland: [3967, 16956, 31092, 62430, 125140], loans: { '1': 26900, '2': 29385, '4': 33795, '5': 25000 }, class2: 3.65, smallProfits: 7105, minimumWage: 12.71 }
+  };
+  const DEFAULTS = Object.freeze({ year: '2026/27', country: 'england', incomeType: 'employed', income: 50000,
+    pensionMethod: 'none', pensionInputMode: 'amount', pensionPercentage: 0, pension: 0, employerPension: 0, employerNIShare: 0,
+    studentPlans: Object.freeze([]), postgraduate: false, niExempt: false, voluntaryClass2: false, hoursPerWeek: 37.5 });
+  const assumptions = [
+    'Annual estimate in GBP; monthly and weekly figures are annual averages, not payslip predictions. Payroll NI and loan rounding, bonuses and irregular pay can differ.',
+    'One employment, sole-trader profit, or taxable pension income only. Full-year UK residence and standard Personal Allowance; no other income or tax-code adjustments.',
+    'Excludes dividends, savings, capital gains, benefits in kind, Child Benefit charges, childcare/benefit eligibility, Gift Aid, marriage allowances, trading losses, payments on account and pension savings tax charges.',
+    'Pension input is the gross annual contribution, including provider tax relief for relief at source. Assumes a registered defined-contribution scheme, eligibility for relief, and age under 75 for personal contributions.',
+    'Relief-at-source take-home includes any additional Income Tax relief claimed from HMRC. This may arrive later than the payslip. Net-pay low-earner HMRC top-ups are not included.',
+    'Student loans assume repayments are due throughout the tax year and the balance is not paid off during it; no interest or write-off forecast. Reduced repayments are cash-flow changes, not guaranteed lifetime savings.',
+    'Annual allowance flags are indicative: carry-forward, defined-benefit accrual and the money purchase annual allowance are not modelled.'
+  ];
+  const round = n => Math.round((n + Number.EPSILON) * 100) / 100;
+  const positive = n => Math.max(0, n);
+  const clone = x => JSON.parse(JSON.stringify(x));
+  function validate(input) {
+    if (!input || typeof input !== 'object' || Array.isArray(input)) throw new TypeError('Input must be a JSON object.');
+    for (const key of Object.keys(input)) if (!Object.hasOwn(DEFAULTS, key)) throw new TypeError('Unknown field: ' + key);
+    const x = { ...DEFAULTS, ...input };
+    for (const [key, allowed] of Object.entries({year: Object.keys(RULES), country: ['england', 'scotland', 'wales', 'northern-ireland'], incomeType: ['employed', 'self-employed', 'pension'], pensionMethod: ['none', 'salary-sacrifice', 'net-pay', 'relief-at-source'], pensionInputMode: ['amount', 'percentage']})) {
+      if (!allowed.includes(x[key])) throw new RangeError('Invalid ' + key + '. Expected: ' + allowed.join(', '));
+    }
+    for (const key of ['income', 'pension', 'pensionPercentage', 'employerPension', 'employerNIShare', 'hoursPerWeek']) {
+      if (typeof x[key] !== 'number' || !Number.isFinite(x[key]) || x[key] < 0) throw new RangeError(key + ' must be a finite non-negative number.');
+    }
+    for (const key of ['income', 'pension', 'employerPension']) if (x[key] > 10000000) throw new RangeError(key + ' must be at most £10,000,000.');
+    if (x.employerNIShare > 100) throw new RangeError('employerNIShare must be between 0 and 100.');
+    if (x.pensionPercentage > 100) throw new RangeError('pensionPercentage must be between 0 and 100.');
+    if (x.hoursPerWeek <= 0 || x.hoursPerWeek > 100) throw new RangeError('hoursPerWeek must be above 0 and at most 100.');
+    for (const key of ['postgraduate', 'niExempt', 'voluntaryClass2']) if (typeof x[key] !== 'boolean') throw new TypeError(key + ' must be true or false.');
+    if (!Array.isArray(x.studentPlans) || x.studentPlans.some(p => !['1','2','4','5'].includes(p)) || new Set(x.studentPlans).size !== x.studentPlans.length) throw new RangeError('studentPlans must contain unique strings from 1, 2, 4, 5.');
+    if (x.pensionInputMode === 'percentage') {
+      if (x.pensionMethod === 'none' && x.pensionPercentage !== 0) throw new RangeError('Choose a pension method for a non-zero contribution.');
+      x.pension = round(x.income * x.pensionPercentage / 100);
+    }
+    if (x.pensionMethod === 'none' && x.pension !== 0) throw new RangeError('Choose a pension method for a non-zero contribution.');
+    if (x.incomeType !== 'employed' && ['salary-sacrifice','net-pay'].includes(x.pensionMethod)) throw new RangeError('Salary sacrifice and net pay require employment.');
+    if (x.incomeType !== 'employed' && (x.employerPension || x.employerNIShare)) throw new RangeError('Employer contributions require employment.');
+    if (x.incomeType === 'pension' && x.pensionMethod !== 'none') throw new RangeError('Pension-income mode does not model new pension contributions.');
+    if (x.incomeType !== 'self-employed' && x.voluntaryClass2) throw new RangeError('Voluntary Class 2 requires self-employment.');
+    if (x.pension > (x.pensionMethod === 'relief-at-source' ? Math.max(3600, x.income) : x.income)) throw new RangeError('Contribution exceeds the supported earnings-based pension relief limit.');
+    return { ...x, studentPlans: [...x.studentPlans] };
+  }
+  // Limits are cumulative TAXABLE income boundaries, not gross salary boundaries.
+  // Relief at source extends the basic band; Scotland's starter width is unchanged.
+  function incomeTax(income, allowance, country, rules, ras = 0) {
+    const scot = country === 'scotland';
+    const limits = scot ? [...rules.scotland, Infinity] : [37700, 125140, Infinity];
+    const rates = scot ? [.19,.20,.21,.42,.45,.48] : [.20,.40,.45];
+    const names = scot ? ['Starter','Basic','Intermediate','Higher','Advanced','Top'] : ['Basic','Higher','Additional'];
+    const taxable = positive(income - allowance);
+    let lower = 0;
+    const bands = limits.map((limit, index) => {
+      const upper = limit + (scot && index === 0 ? 0 : ras);
+      const amount = positive(Math.min(taxable, upper) - lower);
+      const row = { name: names[index], rate: rates[index], from: lower, to: Number.isFinite(upper) ? upper : null, amount: round(amount), tax: round(amount * rates[index]) };
+      lower = upper;
+      return row;
+    });
+    return { taxable: round(taxable), bands, total: round(bands.reduce((sum, b) => sum + b.tax, 0)) };
+  }
+  function calculate(input = {}) {
+    const x = validate(input), r = RULES[x.year], warnings = [];
+    const sacrifice = x.pensionMethod === 'salary-sacrifice' ? x.pension : 0;
+    const netPay = x.pensionMethod === 'net-pay' ? x.pension : 0;
+    const ras = x.pensionMethod === 'relief-at-source' ? x.pension : 0;
+    const cashGross = x.income - sacrifice;
+    const taxIncome = cashGross - netPay;
+    const adjustedNetIncome = positive(taxIncome - ras);
+    const personalAllowance = positive(12570 - positive(adjustedNetIncome - 100000) / 2);
+    const tax = incomeTax(taxIncome, personalAllowance, x.country, r, ras);
+    const noClaimTax = incomeTax(taxIncome, positive(12570 - positive(taxIncome - 100000) / 2), x.country, r).total;
+    const additionalRelief = positive(noClaimTax - tax.total);
+    const niBase = x.incomeType === 'employed' ? cashGross : x.income;
+    const niMainRate = x.incomeType === 'self-employed' ? .06 : .08;
+    const nationalInsurance = x.niExempt || x.incomeType === 'pension' ? 0 : round(positive(Math.min(niBase, 50270) - 12570) * niMainRate + positive(niBase - 50270) * .02);
+    const class2 = x.incomeType === 'self-employed' && !x.niExempt && x.voluntaryClass2 && x.income < r.smallProfits ? round(r.class2 * 52) : 0;
+    // Sole-trader SA pension deduction: SA110 notes K35/K37. PAYE uses NI earnings.
+    const loanIncome = x.incomeType === 'self-employed' ? positive(x.income - ras) : cashGross;
+    const activePlans = x.studentPlans.filter(p => r.loans[p] !== null);
+    const loanThreshold = activePlans.length ? Math.min(...activePlans.map(p => r.loans[p])) : null;
+    const studentLoan = loanThreshold === null ? 0 : round(positive(loanIncome - loanThreshold) * .09);
+    const postgraduateLoan = x.postgraduate ? round(positive(loanIncome - 21000) * .06) : 0;
+    const employerNISaving = round((positive(x.income - 5000) - positive(cashGross - 5000)) * .15);
+    const employerNIReinvested = round(employerNISaving * x.employerNIShare / 100);
+    const providerRelief = round(ras * .20);
+    const pensionPaidFromCash = round(netPay + ras * .80);
+    const totalPension = round(x.pension + x.employerPension + employerNIReinvested);
+    const takeHome = round(cashGross - pensionPaidFromCash - tax.total - nationalInsurance - class2 - studentLoan - postgraduateLoan);
+    const overallEffectiveTaxRate = x.income > 0 ? round((tax.total + nationalInsurance + class2 + studentLoan + postgraduateLoan) / x.income * 100) : 0;
+    const marginalBlocks = [];
+    const pa = personalAllowance;
+    const taxEnds = x.country === 'scotland' ? r.scotland.map(n => n + pa) : [37700 + pa, 125140];
+    const points = [...new Set([0, 100000, 125140, pa, ...taxEnds, loanThreshold, 21000].filter(n => Number.isFinite(n) && n > 0 && n < Math.max(x.income,125140)))].sort((a,b)=>a-b);
+    const rateAt = gross => {
+      let taxRate;
+      if (gross <= 12570) taxRate = 0;
+      else if (x.country === 'scotland') { let i=taxEnds.findIndex(end=>gross<=end); if(i<0)i=5; taxRate=[.19,.20,.21,.42,.45,.48][i]; }
+      else taxRate = gross <= 50270 ? .20 : gross <= 125140 ? .40 : .45;
+      if (gross > 100000 && gross <= 125140) taxRate += .20;
+      const niRate = x.incomeType === 'pension' || x.niExempt ? 0 : gross <= 50270 ? (x.incomeType === 'self-employed' ? .06 : .08) : .02;
+      return round((taxRate + niRate + (loanThreshold !== null && gross > loanThreshold ? .09 : 0) + (x.postgraduate && gross > 21000 ? .06 : 0)) * 100);
+    };
+    for (let i=0;i<points.length;i++) { const from=points[i], to=points[i+1] || Math.max(x.income,from); if(to>from) marginalBlocks.push({from,to,rate:rateAt((from+to)/2),label:from>=100000&&to<=125140?'Personal Allowance taper':'Marginal deductions'}); }
+    const thresholdIncome = x.income - netPay - ras;
+    const adjustedIncome = x.income + x.employerPension + employerNIReinvested;
+    const annualAllowance = thresholdIncome > 200000 && adjustedIncome > 260000 ? Math.max(10000, 60000 - (adjustedIncome - 260000) / 2) : 60000;
+    if (totalPension > annualAllowance) warnings.push('Pension contributions exceed the estimated annual allowance of £' + round(annualAllowance) + '. Results exclude any pension tax charge; carry-forward or other allowances may change this.');
+    if (annualAllowance < 60000) warnings.push('A tapered pension annual allowance may apply. The estimate assumes modern salary-sacrifice arrangements and only the income entered.');
+    if (sacrifice > 0 && cashGross < r.minimumWage * x.hoursPerWeek * 52) warnings.push('Salary sacrifice would put annual average pay below the age-21+ minimum-wage floor for these hours. This scenario may not be available; check each pay period with your employer.');
+    if (sacrifice > 0) warnings.push('Salary sacrifice requires employer agreement. It can affect statutory pay and salary-linked benefits. Employer NI sharing is optional.');
+    if (ras > 0 && additionalRelief > 0) warnings.push('Take-home includes £' + round(additionalRelief) + ' of additional annual pension tax relief, which you may need to claim from HMRC.');
+    if (netPay > 0 && adjustedNetIncome < 12570) warnings.push('A low-earner net-pay pension top-up may be available from HMRC after the year. It is excluded here.');
+    if (x.studentPlans.includes('5') && r.loans['5'] === null) warnings.push('Plan 5 repayments do not start until April 2026; no Plan 5 deduction for 2025/26.');
+    if (x.niExempt) warnings.push(x.incomeType === 'self-employed' ? 'Class 4 exemption assumes State Pension age was reached before the start of this tax year.' : 'Employee NI exemption assumes State Pension age throughout the year.');
+    if (x.incomeType === 'self-employed' && x.income < r.smallProfits && !x.voluntaryClass2 && !x.niExempt) warnings.push('Profits are below the Class 2 credit threshold. Consider whether voluntary Class 2 is needed for your NI record.');
+    return { version: VERSION, rulesVerified: VERIFIED, input: x, basis: 'annual-estimate', currency: 'GBP',
+      annual: { grossIncome: x.income, cashGross: round(cashGross), adjustedNetIncome: round(adjustedNetIncome), personalAllowance: round(personalAllowance), taxableIncome: tax.taxable,
+        incomeTax: tax.total, nationalInsurance, class2, studentLoan, postgraduateLoan, loanIncome: round(loanIncome), loanThreshold,
+        pensionContribution: x.pension, salarySacrifice: sacrifice, pensionPaidFromCash, providerRelief, additionalRelief: round(additionalRelief), employerPension: x.employerPension,
+        employerNISaving, employerNIReinvested, totalPension, annualAllowance: round(annualAllowance), takeHome, takeHomeBeforeReliefClaim: round(takeHome - additionalRelief),
+        taxAndNI: round(tax.total + nationalInsurance + class2), totalDeductions: round(x.income - takeHome), overallEffectiveTaxRate, marginalBlocks },
+      averages: { monthlyTakeHome: round(takeHome / 12), weeklyTakeHome: round(takeHome / 52) },
+      taxBands: tax.bands, warnings, assumptions: [...assumptions] };
+  }
+  function compare(baseline, changes) {
+    const before = calculate(baseline), after = calculate({ ...before.input, ...changes });
+    const difference = {};
+    for (const key of ['takeHome','totalPension','incomeTax','nationalInsurance','class2','studentLoan','postgraduateLoan','adjustedNetIncome','providerRelief']) difference[key] = round(after.annual[key] - before.annual[key]);
+    return { before, after, difference, taxAndNISaved: round(before.annual.taxAndNI - after.annual.taxAndNI),
+      loanRepaymentsReduced: round(-difference.studentLoan - difference.postgraduateLoan),
+      additionalProviderRelief: difference.providerRelief };
+  }
+  return Object.freeze({ version: VERSION, verified: VERIFIED, defaults: DEFAULTS, getRules: () => clone(RULES), calculate, compare });
+});
+
+</script>
+  <script id="taxman-result" type="application/json">null</script>
+  <script>
+(function () {
+  'use strict';
+  const offlinePage = '<!doctype html>\n' + document.documentElement.outerHTML;
+  const $ = id => document.getElementById(id);
+  const form = $('calculator-form'), scenarioForm = $('scenario-form');
+  const money = value => new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value);
+  const whole = value => new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP', maximumFractionDigits: 0 }).format(value);
+  const signed = value => (value > 0 ? '+' : value < 0 ? '−' : '') + money(Math.abs(value));
+  let period = 12, current = null, comparison = null, scenarioEdited = false;
+  const field = name => form.elements.namedItem(name);
+  const scenario = name => scenarioForm.elements.namedItem(name);
+  const visible = (id, show) => { $(id).hidden = !show; };
+  function setupFields() {
+    const type = field('incomeType').value;
+    const employed = type === 'employed', pensionIncome = type === 'pension';
+    for (const option of field('pensionMethod').options) option.disabled = !employed && ['salary-sacrifice','net-pay'].includes(option.value);
+    if (field('pensionMethod').selectedOptions[0].disabled) field('pensionMethod').value = 'relief-at-source';
+    if (pensionIncome) field('pensionMethod').value = 'none';
+    const method = field('pensionMethod').value;
+    const inputMode = field('pensionInputMode').value;
+    if (method === 'none') field('pension').value = '0';
+    if (!employed) { field('employerPension').value = '0'; field('employerNIShare').value = '0'; }
+    if (type !== 'self-employed') field('voluntaryClass2').checked = false;
+    if (pensionIncome) field('niExempt').checked = false;
+    visible('pension-fields', !pensionIncome);
+    visible('contribution-field', method !== 'none');
+    visible('pension-amount-field', inputMode === 'amount');
+    visible('pension-percentage-field', inputMode === 'percentage');
+    visible('employer-field', employed);
+    visible('sacrifice-fields', employed); // Hours and sharing also apply to alternative scenarios.
+    visible('class2-field', type === 'self-employed');
+    visible('ni-field', !pensionIncome);
+    $('ni-label').textContent = type === 'self-employed' ? 'Reached State Pension age before this tax year' : 'State Pension age for the whole year';
+    $('income-label').textContent = type === 'self-employed' ? 'Annual taxable profit' : pensionIncome ? 'Annual taxable pension income' : 'Annual gross salary';
+    $('income-help').textContent = type === 'self-employed' ? 'Profit after allowable business expenses, before personal pensions or tax. Not turnover.' : pensionIncome ? 'Taxable amount only, including State Pension. Exclude tax-free lump sums.' : 'Before tax and pension contributions, including bonuses.';
+    $('pension-help').textContent = inputMode === 'percentage' ? 'The engine converts this to a gross annual contribution from the income above.' : method === 'relief-at-source' ? 'Include the provider’s 20% relief: if you pay £4,000, enter £5,000. Any extra relief is included in the take-home estimate.' : 'Gross annual amount from your salary. Exclude employer contributions. Use the actual amount, not an assumed qualifying-earnings percentage.';
+    for (const option of scenario('scenarioMethod').options) option.disabled = (!employed && ['salary-sacrifice','net-pay'].includes(option.value)) || (pensionIncome && option.value !== 'none');
+    if (scenario('scenarioMethod').selectedOptions[0].disabled) scenario('scenarioMethod').value = pensionIncome ? 'none' : 'relief-at-source';
+    visible('scenario-method-label', !pensionIncome);
+    visible('scenario-pension-label', !pensionIncome);
+    visible('switch-sacrifice', employed);
+    visible('extra-pension', !pensionIncome);
+    visible('restore-allowance', !pensionIncome);
+  }
+  function getInput() {
+    const x = {};
+    for (const key of Object.keys(Taxman.defaults)) {
+      if (key === 'studentPlans') x[key] = Array.from(form.querySelectorAll('[name="studentPlans"]:checked'), el => el.value);
+      else if (typeof Taxman.defaults[key] === 'boolean') x[key] = field(key).checked;
+      else if (typeof Taxman.defaults[key] === 'number') {
+        if (field(key).value.trim() === '') throw new Error('Enter a value for ' + field(key).closest('label').textContent.trim() + '.');
+        x[key] = field(key).valueAsNumber;
+      } else x[key] = field(key).value;
+    }
+    return x;
+  }
+  function resetScenario(x) {
+    scenario('scenarioIncome').value = x.income;
+    scenario('scenarioMethod').value = x.incomeType === 'pension' ? 'none' : x.pensionMethod !== 'none' ? x.pensionMethod : x.incomeType === 'employed' ? 'salary-sacrifice' : 'relief-at-source';
+    scenario('scenarioPension').value = x.incomeType === 'pension' ? 0 : Math.min(x.pension + 5000, x.income);
+  }
+  function addRow(parent, label, value) {
+    const div = document.createElement('div'), dt = document.createElement('dt'), dd = document.createElement('dd');
+    dt.textContent = label; dd.textContent = value; div.append(dt, dd); parent.append(div);
+  }
+  function renderResult() {
+    const a = current.annual;
+    $('take-home').textContent = money(a.takeHome / period);
+    $('period-label').textContent = period === 1 ? 'per year' : period === 12 ? 'per month, annual average' : 'per week, annual average';
+    $('take-home-note').textContent = a.additionalRelief > 0 ? 'Includes ' + money(a.additionalRelief / period) + ' additional pension tax relief to claim from HMRC.' : current.input.incomeType === 'self-employed' ? 'After estimated annual tax, NI, pensions and loans. Set tax aside yourself.' : 'After Income Tax, National Insurance, pensions and loans.';
+    $('breakdown').replaceChildren();
+    const rows = [['Gross income', a.grossIncome], ['Income Tax', -a.incomeTax], ['National Insurance', -a.nationalInsurance]];
+    if (a.class2) rows.push(['Voluntary Class 2 NI', -a.class2]);
+    if (a.salarySacrifice) rows.push(['Pension salary sacrifice', -a.salarySacrifice]);
+    if (a.pensionPaidFromCash) rows.push(['Pension paid from cash', -a.pensionPaidFromCash]);
+    if (current.input.studentPlans.length) rows.push(['Student loan repayments', -a.studentLoan]);
+    if (current.input.postgraduate) rows.push(['Postgraduate loan', -a.postgraduateLoan]);
+    for (const [label, amount] of rows) addRow($('breakdown'), label, money(amount / period));
+    $('pension-total').textContent = money(a.totalPension / period);
+    $('effective-rate').textContent = a.overallEffectiveTaxRate + '%';
+    $('allowance-value').textContent = money(a.personalAllowance);
+    $('allowance-impact').textContent = a.personalAllowance < 12570 ? money(12570 - a.personalAllowance) + ' lost to the £100k taper' : 'Full standard allowance';
+    $('allocation').replaceChildren();
+    const allocation = [['cash', a.takeHome], ['tax', a.taxAndNI], ['pension', a.salarySacrifice + a.pensionPaidFromCash], ['loans', a.studentLoan + a.postgraduateLoan]];
+    const total = allocation.reduce((sum, [,n]) => sum + Math.max(0,n), 0);
+    for (const [name, value] of allocation) {
+      const span = document.createElement('span'); span.className = name; span.style.width = (total ? Math.max(0,value) / total * 100 : 0) + '%'; $('allocation').append(span);
+    }
+    $('tax-bands').replaceChildren();
+    for (const b of current.taxBands) {
+      const tr = document.createElement('tr');
+      for (const [index, text] of [b.name, Math.round(b.rate * 100) + '%', money(b.amount), money(b.tax)].entries()) {
+        const td = document.createElement(index === 0 ? 'th' : 'td'); if (index === 0) td.scope = 'row'; td.textContent = text; tr.append(td);
+      }
+      $('tax-bands').append(tr);
+    }
+    $('marginal-blocks').replaceChildren();
+    for (const block of a.marginalBlocks) {
+      const tr = document.createElement('tr');
+      const end = block.to >= Math.max(current.input.income, 125140) ? 'and above' : '– ' + money(block.to);
+      [money(block.from) + ' ' + end, block.rate + '%', block.label].forEach((text, index) => { const td = document.createElement(index === 0 ? 'th' : 'td'); if(index===0) td.scope='row'; td.textContent=text; tr.append(td); });
+      $('marginal-blocks').append(tr);
+    }
+    $('allowance-note').textContent = 'Adjusted net income: ' + money(a.adjustedNetIncome) + '. Personal Allowance: ' + money(a.personalAllowance) + '. Taxable income: ' + money(a.taxableIncome) + '. All figures below are annual.';
+    $('assumptions').replaceChildren(...current.assumptions.map(message => { const li = document.createElement('li'); li.textContent = message; return li; }));
+    $('warnings').replaceChildren(...current.warnings.map(message => { const p = document.createElement('p'); p.className = 'warning'; p.textContent = message; return p; }));
+    $('restore-allowance').disabled = a.adjustedNetIncome <= 100000;
+  }
+  function renderComparison() {
+    comparison = null;
+    $('comparison').replaceChildren(); $('scenario-explanation').textContent = '';
+    try {
+      if (!scenarioForm.checkValidity()) throw new Error('Enter valid non-negative income and pension amounts for the alternative.');
+      const method = scenario('scenarioMethod').value;
+      scenario('scenarioPension').disabled = method === 'none';
+      if (method === 'none') scenario('scenarioPension').value = '0';
+      comparison = Taxman.compare(current.input, { income: scenario('scenarioIncome').valueAsNumber, pension: scenario('scenarioPension').valueAsNumber, pensionMethod: method, pensionInputMode: 'amount' });
+      visible('scenario-error', false);
+      const d = comparison.difference, a = comparison.after.annual, b = current.annual;
+      const grid = document.createElement('div'); grid.className = 'comparison-grid';
+      for (const [label, value] of [['Change to take-home', d.takeHome], ['Change to pension', d.totalPension]]) {
+        const card = document.createElement('div'); card.className = 'delta';
+        const title = document.createElement('small'); title.textContent = label;
+        const amount = document.createElement('strong'); amount.textContent = signed(value / period); if (value < 0) amount.className = 'negative';
+        const time = document.createElement('span'); time.textContent = period === 1 ? 'per year' : period === 12 ? 'per month on average' : 'per week on average';
+        card.append(title, amount, time); grid.append(card);
+      }
+      $('comparison').append(grid);
+      const table = document.createElement('table'); table.className = 'comparison-table';
+      const head = document.createElement('thead'); const hr = document.createElement('tr');
+      for (const text of ['Annual amounts', 'Current', 'Alternative']) { const th = document.createElement('th'); th.scope='col'; th.textContent=text; hr.append(th); } head.append(hr); table.append(head);
+      const body = document.createElement('tbody');
+      for (const [label, key] of [['Take-home', 'takeHome'], ['Into pension', 'totalPension'], ['Income Tax + NI', 'taxAndNI'], ['Student + postgrad loans', 'loans']]) {
+        const tr = document.createElement('tr');
+        const values = [label, money(key === 'loans' ? b.studentLoan + b.postgraduateLoan : b[key]), money(key === 'loans' ? a.studentLoan + a.postgraduateLoan : a[key])];
+        values.forEach((text, index) => { const td = document.createElement(index === 0 ? 'th' : 'td'); if (index === 0) td.scope='row'; td.textContent=text; tr.append(td); }); body.append(tr);
+      }
+      table.append(body); $('comparison').append(table);
+      const relief = comparison.taxAndNISaved + comparison.additionalProviderRelief;
+      $('scenario-explanation').textContent = (relief >= 0 ? whole(relief) + ' less tax and NI, including any additional provider pension relief.' : whole(-relief) + ' more tax and NI, net of any provider pension relief.') + (comparison.loanRepaymentsReduced ? ' Loan repayments change by ' + signed(-comparison.loanRepaymentsReduced) + ' per year.' : '') + (d.takeHome < 0 && d.totalPension > 0 ? ' You exchange ' + whole(-d.takeHome) + ' of annual take-home for ' + whole(d.totalPension) + ' more in your pension.' : '');
+      for (const message of comparison.after.warnings) { const p = document.createElement('p'); p.className = 'warning'; p.textContent = 'Alternative: ' + message; $('comparison').append(p); }
+    } catch (error) { $('scenario-error').textContent = error.message; visible('scenario-error', true); }
+    publishJSON();
+  }
+  function publishJSON() {
+    $('taxman-result').textContent = JSON.stringify(current ? { result: current, comparison } : null);
+  }
+  function update() {
+    try {
+      setupFields();
+      const x = getInput(); current = Taxman.calculate(x);
+      visible('error', false); document.querySelector('.results-column').classList.remove('invalid');
+      $('download-results').disabled = false;
+      if (!scenarioEdited) resetScenario(x);
+      renderResult(); renderComparison();
+    } catch (error) {
+      current = null; comparison = null; publishJSON();
+      $('error').textContent = error.message; visible('error', true);
+      document.querySelector('.results-column').classList.add('invalid'); $('download-results').disabled = true;
+    }
+  }
+  function download(name, content, type) {
+    const url = URL.createObjectURL(new Blob([content], {type}));
+    const a = document.createElement('a'); a.href=url; a.download=name; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+  form.addEventListener('submit', event => event.preventDefault());
+  scenarioForm.addEventListener('submit', event => event.preventDefault());
+  form.addEventListener('input', update);
+  scenarioForm.addEventListener('input', () => { scenarioEdited = true; if (current) renderComparison(); });
+  for (const button of document.querySelectorAll('[data-period]')) button.addEventListener('click', () => {
+    period = Number(button.dataset.period);
+    for (const other of document.querySelectorAll('[data-period]')) other.setAttribute('aria-pressed', String(other === button));
+    if (current) { renderResult(); renderComparison(); }
+  });
+  $('reset').addEventListener('click', () => { form.reset(); scenarioForm.reset(); scenarioEdited = false; $('status').textContent = ''; update(); });
+  function quickScenario(action) {
+    if (!current) return;
+    const x = current.input; resetScenario(x); scenarioEdited = true;
+    if (action === 'switch') { scenario('scenarioMethod').value = 'salary-sacrifice'; scenario('scenarioPension').value = x.pension || Math.min(5000,x.income); }
+    if (action === 'extra') scenario('scenarioPension').value = x.pension + 1000;
+    if (action === 'allowance') scenario('scenarioPension').value = Math.round((x.pension + Math.max(0,current.annual.adjustedNetIncome - 100000)) * 100) / 100;
+    renderComparison();
+  }
+  $('switch-sacrifice').addEventListener('click', () => quickScenario('switch'));
+  $('extra-pension').addEventListener('click', () => quickScenario('extra'));
+  $('restore-allowance').addEventListener('click', () => quickScenario('allowance'));
+  $('download-results').addEventListener('click', () => { if (current) { download('taxman-results.json', JSON.stringify({result: current, comparison}, null, 2), 'application/json'); $('status').textContent = 'Results exported. This file contains the income and pension figures you entered.'; } });
+  $('download-offline').addEventListener('click', () => { download('taxman-offline.html', offlinePage, 'text/html'); $('status').textContent = 'Offline page downloaded with example inputs. Open it directly in your browser; no connection needed.'; });
+  $('print').addEventListener('click', () => window.print());
+  if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
+    navigator.serviceWorker.register('./sw.js').then(reg => {
+      const ready = () => { if (navigator.serviceWorker.controller) $('status').textContent = 'This page is available for offline revisits in this browser. You can also download a standalone copy.'; };
+      ready(); navigator.serviceWorker.addEventListener('controllerchange', ready);
+    }).catch(() => { /* Direct file use and restrictive hosts still support the standalone download. */ });
+  }
+  update();
+})();
+
+</script>
+</body>
+</html>

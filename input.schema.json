@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Taxman calculation input v1.0.0",
+  "description": "Annual GBP inputs. Engine enforces additional cross-field pension and employment constraints; see API.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "year": {"enum": ["2025/26", "2026/27"], "default": "2026/27"},
+    "country": {"enum": ["england", "scotland", "wales", "northern-ireland"], "default": "england"},
+    "incomeType": {"enum": ["employed", "self-employed", "pension"], "default": "employed"},
+    "income": {"type": "number", "minimum": 0, "maximum": 10000000, "default": 50000},
+    "pensionMethod": {"enum": ["none", "salary-sacrifice", "net-pay", "relief-at-source"], "default": "none"},
+    "pensionInputMode": {"enum": ["amount", "percentage"], "default": "amount"},
+    "pensionPercentage": {"type": "number", "minimum": 0, "maximum": 100, "default": 0},
+    "pension": {"type": "number", "minimum": 0, "maximum": 10000000, "default": 0},
+    "employerPension": {"type": "number", "minimum": 0, "maximum": 10000000, "default": 0},
+    "employerNIShare": {"type": "number", "minimum": 0, "maximum": 100, "default": 0},
+    "studentPlans": {"type": "array", "items": {"enum": ["1", "2", "4", "5"]}, "uniqueItems": true, "default": []},
+    "postgraduate": {"type": "boolean", "default": false},
+    "niExempt": {"type": "boolean", "default": false},
+    "voluntaryClass2": {"type": "boolean", "default": false},
+    "hoursPerWeek": {"type": "number", "exclusiveMinimum": 0, "maximum": 100, "default": 37.5}
+  }
+}

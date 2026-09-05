@@ -1,0 +1,83 @@
+// Optional browser verification. Requires Playwright separately; not a runtime dependency.
+// Run npm start first, then TAXMAN_PLAYWRIGHT_PATH=/path/to/playwright node scripts/browser-check.cjs.
+'use strict';
+const {chromium}=require(process.env.TAXMAN_PLAYWRIGHT_PATH || 'playwright');
+const assert=require('node:assert/strict');
+const path=require('node:path');
+const fs=require('node:fs');
+const os=require('node:os');
+const root=path.resolve(__dirname,'..');
+(async()=>{
+  const browser=await chromium.launch({headless:true});
+  try {
+    const context=await browser.newContext({acceptDownloads:true,viewport:{width:1440,height:1100}});
+    const page=await context.newPage(), errors=[], network=[];
+    page.on('pageerror',e=>errors.push(e.message));
+    page.on('request',r=>{if(/^https?:/.test(r.url()))network.push(r.url());});
+    await page.goto('file://'+path.join(root,'dist/index.html'));
+    assert.equal(await page.locator('#take-home').textContent(),'£3,293.30');
+    await page.locator('[name="country"]').selectOption('scotland');
+    assert.equal(await page.locator('#take-home').textContent(),'£3,168.63');
+    await page.locator('[name="income"]').fill('60000');
+    await page.locator('[name="pensionMethod"]').selectOption('net-pay');
+    await page.locator('[name="pension"]').fill('6000');
+    await page.locator('[name="studentPlans"][value="2"]').check();
+    await page.locator('#switch-sacrifice').click();
+    let json=await page.locator('#taxman-result').textContent();
+    assert.equal(JSON.parse(json).comparison.difference.takeHome,660);
+    assert.equal(JSON.parse(json).comparison.difference.totalPension,0);
+    await page.locator('[name="income"]').fill('-1');
+    assert.equal(await page.locator('#error').isVisible(),true);
+    assert.equal(await page.locator('#taxman-result').textContent(),'null');
+    assert.equal(await page.locator('#download-results').isDisabled(),true);
+    await page.locator('[name="income"]').fill('60000');
+    await page.locator('[name="incomeType"]').selectOption('self-employed');
+    assert.equal(await page.locator('[name="pensionMethod"]').inputValue(),'relief-at-source');
+    json=JSON.parse(await page.locator('#taxman-result').textContent());
+    assert.equal(json.result.annual.loanIncome,54000);
+    await page.locator('[name="incomeType"]').selectOption('pension');
+    json=JSON.parse(await page.locator('#taxman-result').textContent());
+    assert.equal(json.result.annual.nationalInsurance,0);
+    await page.locator('#reset').click();
+    await page.locator('[name="income"]').fill('110000');
+    await page.locator('#restore-allowance').click();
+    json=JSON.parse(await page.locator('#taxman-result').textContent());
+    assert.equal(json.comparison.after.annual.personalAllowance,12570);
+    await page.locator('[name="scenarioPension"]').fill('200000');
+    assert.equal(await page.locator('#scenario-error').isVisible(),true);
+    assert.equal(JSON.parse(await page.locator('#taxman-result').textContent()).comparison,null);
+    await page.locator('#reset').click();
+    const temp=fs.mkdtempSync(path.join(os.tmpdir(),'taxman-check-'));
+    const resultDownload=page.waitForEvent('download'); await page.locator('#download-results').click();
+    const results=await resultDownload; await results.saveAs(path.join(temp,'results.json'));
+    assert.equal(JSON.parse(fs.readFileSync(path.join(temp,'results.json'),'utf8')).result.annual.takeHome,39519.6);
+    const offlineDownload=page.waitForEvent('download'); await page.locator('#download-offline').click();
+    const offline=await offlineDownload; await offline.saveAs(path.join(temp,'offline.html'));
+    await context.setOffline(true);
+    await page.goto('file://'+path.join(temp,'offline.html'));
+    assert.equal(await page.locator('#take-home').textContent(),'£3,293.30');
+    await page.locator('[name="income"]').fill('70000');
+    assert.equal(JSON.parse(await page.locator('#taxman-result').textContent()).result.annual.incomeTax,15432);
+    assert.deepEqual(network,[]);
+    for(const width of [375,768,1440]) {
+      await page.setViewportSize({width,height:1000});
+      assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth), 'No horizontal overflow at '+width);
+    }
+    await page.locator('#reset').click();
+    await page.screenshot({path:path.join(temp,'desktop.png'),fullPage:true});
+    await page.setViewportSize({width:375,height:900});
+    await page.screenshot({path:path.join(temp,'mobile.png'),fullPage:true});
+    await context.setOffline(false);
+    await page.goto('http://127.0.0.1:4173/taxman/');
+    await page.evaluate(()=>navigator.serviceWorker.ready);
+    await page.waitForFunction(()=>navigator.serviceWorker.controller!==null);
+    await context.setOffline(true); await page.reload();
+    assert.equal(await page.locator('#take-home').textContent(),'£3,293.30');
+    await page.locator('[name="country"]').selectOption('wales');
+    await page.locator('[name="income"]').fill('60000');
+    assert.equal(JSON.parse(await page.locator('#taxman-result').textContent()).result.annual.incomeTax,11432);
+    assert.deepEqual(errors,[]);
+    console.log('Browser checks passed: regional changes, pension/loan interactions, scenarios, invalid states, reset, JSON export, downloaded file offline, hosted offline reload, 375/768/1440px overflow.');
+    console.log('Screenshots: '+temp);
+  } finally {await browser.close();}
+})().catch(e=>{console.error(e);process.exitCode=1;});
