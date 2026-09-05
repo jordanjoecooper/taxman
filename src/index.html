@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Understand your UK take-home pay. Compare income tax, pensions, salary sacrifice and student loans in a private, fully offline calculator.">
+  <meta name="theme-color" content="#164b40">
+  <meta property="og:title" content="Taxman — make sense of your take-home pay">
+  <meta property="og:description" content="An offline UK tax and pension calculator for people and agents. England, Scotland, Wales and Northern Ireland.">
+  <meta property="og:type" content="website">
+  <meta name="referrer" content="no-referrer">
+  <title>Taxman · UK take-home pay & pension calculator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a href="#calculator" class="skip">Skip to calculator</a>
+  <header class="masthead"><a class="brand" href="#">taxman<span class="brand-dot">.</span></a><span class="byline">A tool by Jordan Joe Cooper</span><span class="privacy"><span aria-hidden="true">●</span> Private by design. Works offline.</span></header>
+  <main>
+    <div class="intro"><div><p class="eyebrow">UK TAX & PENSION CALCULATOR</p><h1>See where your money goes.<br><span>Explore what could change.</span></h1><p>Take-home pay, pension contributions and the decisions in between.</p></div><div class="edition">2025/26 + 2026/27<span>Rules checked 5 September 2026</span></div></div>
+    <div class="workspace" id="calculator">
+      <form id="calculator-form" class="card inputs" novalidate>
+        <div class="section-title"><h2>Your numbers</h2><button type="button" class="text-button" id="reset">Reset</button></div>
+        <div class="field-grid"><label>Tax year<select name="year"><option value="2026/27">2026/27</option><option value="2025/26">2025/26</option></select></label><label>Where you live<select name="country"><option value="england">England</option><option value="scotland">Scotland</option><option value="wales">Wales</option><option value="northern-ireland">Northern Ireland</option></select></label></div>
+        <label>Income type<select name="incomeType"><option value="employed">Employed</option><option value="self-employed">Self-employed / sole trader</option><option value="pension">Taxable pension income</option></select></label>
+        <label><span id="income-label">Annual gross salary</span><span class="money-input"><span>£</span><input name="income" type="number" value="50000" min="0" max="10000000" step="0.01" inputmode="decimal" required aria-describedby="income-help"></span></label><p id="income-help" class="help">Before tax and pension contributions, including bonuses.</p>
+        <fieldset id="pension-fields"><legend>Pension contributions</legend><label>How you contribute<select name="pensionMethod"><option value="none">No personal contribution</option><option value="salary-sacrifice">Salary sacrifice</option><option value="net-pay">Net pay (before Income Tax)</option><option value="relief-at-source">Relief at source / SIPP</option></select></label>
+          <div id="contribution-field" hidden><label>Contribution input<select name="pensionInputMode"><option value="amount">Fixed amount (£ per year)</option><option value="percentage">Percentage of salary / profit</option></select></label><label id="pension-amount-field">Gross contribution per year<span class="money-input"><span>£</span><input name="pension" type="number" value="0" min="0" max="10000000" step="0.01" inputmode="decimal" aria-describedby="pension-help" required></span></label><label id="pension-percentage-field" hidden>Contribution percentage<input name="pensionPercentage" type="number" value="0" min="0" max="100" step="0.1" inputmode="decimal" aria-describedby="pension-help" required><span class="help">Calculated from your entered annual salary or profit.</span></label><p class="help" id="pension-help">Total going into your pension before employer additions.</p></div>
+          <div id="employer-field"><label>Employer contribution per year<span class="money-input"><span>£</span><input name="employerPension" type="number" value="0" min="0" max="10000000" step="0.01" inputmode="decimal" required></span></label><p class="help">On top of your contribution; exclude sacrificed salary.</p></div>
+          <div id="sacrifice-fields" hidden><div class="field-grid"><label>Weekly paid hours<input name="hoursPerWeek" type="number" min="0.01" max="100" step="0.01" value="37.5" required></label><label>Employer NI shared (%)<input name="employerNIShare" type="number" min="0" max="100" step="1" value="0" required></label></div><p class="help">NI savings your employer adds to your pension. Minimum-wage check assumes age 21+ and 52 paid weeks.</p></div>
+        </fieldset>
+        <fieldset><legend>Student loans</legend><p class="help loan-intro">Choose every plan you repay. Your plan depends on your loan, not where you live now.</p><div class="plan-options"><label><input type="checkbox" name="studentPlans" value="1"> Plan 1</label><label><input type="checkbox" name="studentPlans" value="2"> Plan 2</label><label><input type="checkbox" name="studentPlans" value="4"> Plan 4</label><label><input type="checkbox" name="studentPlans" value="5"> Plan 5</label></div><label class="check"><input type="checkbox" name="postgraduate"> Postgraduate loan as well</label></fieldset>
+        <details class="advanced"><summary>National Insurance options</summary><label class="check" id="ni-field"><input type="checkbox" name="niExempt"><span id="ni-label">State Pension age for the whole year</span></label><label class="check" id="class2-field" hidden><input type="checkbox" name="voluntaryClass2"> Pay voluntary Class 2 when below the profits threshold</label></details>
+        <p class="help">One income source per calculation. Annual estimates, not a tax return or exact payslip.</p>
+      </form>
+      <div class="results-column">
+        <div id="error" class="error" role="alert" hidden></div>
+        <section class="card result-card" aria-labelledby="result-title">
+          <div class="result-top"><h2 id="result-title">Your take-home pay</h2><div class="periods" role="group" aria-label="Display period"><button type="button" data-period="12" aria-pressed="true">Monthly</button><button type="button" data-period="1" aria-pressed="false">Yearly</button><button type="button" data-period="52" aria-pressed="false">Weekly</button></div></div>
+          <div class="take-home"><output id="take-home" aria-live="polite">—</output><span id="period-label">per month, annual average</span></div>
+          <p id="take-home-note">After Income Tax, National Insurance, pensions and loans.</p>
+          <div class="allocation" id="allocation" aria-hidden="true"></div><div class="allocation-key"><span><i class="cash-dot"></i>Take-home</span><span><i class="tax-dot"></i>Tax & NI</span><span><i class="pension-dot"></i>Pension from pay</span><span><i class="loan-dot"></i>Loans</span></div>
+          <dl id="breakdown" class="breakdown"></dl>
+          <div class="pension-total"><span>Into your pension <small>Including employer & provider additions</small></span><strong id="pension-total">—</strong></div>
+          <div class="rate-summary"><div><span>Overall deductions</span><strong id="effective-rate">—</strong><small>Tax, NI & loans ÷ gross income</small></div><div><span>Personal Allowance</span><strong id="allowance-value">—</strong><small id="allowance-impact">Standard allowance</small></div></div>
+        </section>
+        <section class="card decisions" aria-labelledby="decisions-title"><div class="section-title"><div><p class="eyebrow">WHAT IF?</p><h2 id="decisions-title">Make the trade-off visible</h2></div><span class="small-badge">Live comparison</span></div><p class="muted">Explore a different pension contribution or income. See the change to cash today and pension savings for later.</p>
+          <div class="quick-actions"><button type="button" id="switch-sacrifice">Try salary sacrifice</button><button type="button" id="restore-allowance">Explore £100k threshold</button><button type="button" id="extra-pension">Add £1,000 to pension</button></div>
+          <form id="scenario-form" novalidate><div class="field-grid"><label><span id="scenario-income-label">Alternative annual income (£)</span><input name="scenarioIncome" type="number" value="50000" min="0" max="10000000" step="0.01" required></label><label id="scenario-pension-label">Alternative gross pension (£)<input name="scenarioPension" type="number" value="5000" min="0" max="10000000" step="0.01" required></label></div><label id="scenario-method-label">Alternative contribution method<select name="scenarioMethod"><option value="salary-sacrifice">Salary sacrifice</option><option value="net-pay">Net pay</option><option value="relief-at-source">Relief at source / SIPP</option><option value="none">No personal contribution</option></select></label></form>
+          <p id="scenario-error" class="error" role="alert" hidden></p><div id="comparison"></div><p id="scenario-explanation" class="help"></p>
+          <p class="help comparison-footnote">Pension money is usually inaccessible until pension access age and may be taxed on withdrawal. Lower loan payments may defer repayment. Comparisons exclude pension tax charges and benefit changes.</p>
+        </section>
+        <section class="card details-card"><details><summary>Your tax bands, marginal blocks & calculation notes</summary><p id="allowance-note" class="muted"></p><div class="table-scroll"><table><caption>Annual taxable income after your Personal Allowance</caption><thead><tr><th scope="col">Band</th><th scope="col">Rate</th><th scope="col">Income in band</th><th scope="col">Tax</th></tr></thead><tbody id="tax-bands"></tbody></table></div><h3>Effective rate by gross-income block</h3><p class="help">Marginal deductions combine Income Tax, National Insurance and selected loan repayments. The Personal Allowance taper adds 20 percentage points between £100,000 and £125,140.</p><div class="table-scroll"><table><thead><tr><th scope="col">Gross block</th><th scope="col">Marginal deductions</th><th scope="col">What changes</th></tr></thead><tbody id="marginal-blocks"></tbody></table></div><p class="help">Relief-at-source contributions extend the basic-rate band and shift the higher boundaries. Scotland’s starter band stays the same.</p><ul id="assumptions"></ul></details><div id="warnings"></div></section>
+      </div>
+    </div>
+    <section class="utility-bar"><div><strong>Your numbers stay here.</strong><p>No accounts, cookies, analytics or network calculations. Nothing is saved automatically.</p></div><div class="utility-actions"><button type="button" id="download-results">Export results (JSON)</button><button type="button" id="download-offline">Download offline page</button><button type="button" id="print">Print</button></div><p id="status" role="status"></p></section>
+    <section class="information-grid"><details class="card"><summary>For people & agents</summary><p>The same calculation engine powers this page and a dependency-free Node interface. It accepts structured inputs and returns the calculation, tax bands, assumptions and warnings.</p><pre><code>Taxman.calculate({
+  year: '2026/27', country: 'scotland',
+  income: 60000,
+  pensionMethod: 'salary-sacrifice',
+  pension: 6000, studentPlans: ['4']
+})</code></pre><p>Use <code>Taxman.compare(baseline, changes)</code> for scenarios. Download the distribution to use <code>node cli.cjs &lt; input.json</code>. The full JSON result is also in <code>#taxman-result</code> after each calculation.</p><p><a href="API.md">API reference</a> · <a href="input.schema.json">Input schema</a> · <a href="engine.js" download>Calculation engine</a></p></details>
+    <details class="card"><summary>Tax years, sources & scope</summary><p>Rules are bundled with the page, checked on 5 September 2026. Offline copies do not update themselves. The selected year runs from 6 April to 5 April.</p><p>Supports employment, sole-trader profits and taxable pension income separately. Enter pension income after excluding any tax-free element. It does not calculate drawdown allowances or tax-free lump sums.</p><p>Figures use published <a href="https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027" target="_blank" rel="noopener noreferrer">HMRC rates for 2026/27</a>, <a href="https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2025-to-2026" target="_blank" rel="noopener noreferrer">2025/26 rates</a> and <a href="https://www.gov.scot/publications/scottish-income-tax-rates-and-bands/" target="_blank" rel="noopener noreferrer">Scottish tax bands</a>.</p><p><a href="SOURCES.md">Full sources & methodology</a>. Source links need an internet connection; calculations do not.</p><p>An independent planning estimate, not personalised financial advice or an HMRC filing tool.</p></details></section>
+    <footer><span class="brand">taxman.</span><span>Made for clearer decisions.</span><span>Rules v1.0.0 · Fully offline</span></footer>
+  </main>
+  <noscript><p class="error">Enable JavaScript to calculate locally. No data is sent anywhere.</p></noscript>
+  <script src="engine.js"></script>
+  <script id="taxman-result" type="application/json">null</script>
+  <script src="app.js"></script>
+</body>
+</html>
